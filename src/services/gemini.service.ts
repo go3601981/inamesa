@@ -6,14 +6,27 @@ import { GoogleGenAI, Type } from '@google/genai';
 })
 export class GeminiService {
   private ai: GoogleGenAI;
+  private apiKey: string;
 
   constructor() {
-    // Initialize Gemini with the API Key from environment
-    this.ai = new GoogleGenAI({ apiKey: process.env['API_KEY'] || '' });
+    this.apiKey = this.getApiKey();
+    // Initialize Gemini with the API Key
+    this.ai = new GoogleGenAI({ apiKey: this.apiKey });
+  }
+
+  private getApiKey(): string {
+    try {
+      if (typeof process !== 'undefined' && process.env) {
+        return process.env['API_KEY'] || '';
+      }
+    } catch (e) {
+      console.warn('Error accessing process.env:', e);
+    }
+    return '';
   }
 
   async generateOutline(client: string, tone: string, language: string): Promise<any[]> {
-    if (!process.env['API_KEY']) {
+    if (!this.apiKey) {
       console.warn('No API Key found. Returning mock data.');
       return [
         { title: 'Overview', layout: 'content' },
@@ -60,7 +73,7 @@ export class GeminiService {
   }
 
   async generateSlideContent(title: string, client: string, tone: string, language: string): Promise<string[]> {
-     if (!process.env['API_KEY']) {
+     if (!this.apiKey) {
       return ['Placeholder content point 1', 'Placeholder content point 2', 'Placeholder content point 3'];
     }
 
