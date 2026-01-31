@@ -27,7 +27,7 @@ import { Slide } from '../services/presentation.service';
                 class="max-h-[60px] max-w-[100px] object-contain" 
                 alt="Go360 Logo">
         } @else {
-           <div class="text-sm font-bold text-slate-400">{{ timestamp | date:'yyyy' }}</div>
+           <div class="text-sm font-bold text-slate-400">2026</div>
         }
       </div>
 
@@ -246,7 +246,6 @@ import { Slide } from '../services/presentation.service';
 })
 export class SlideRendererComponent {
   slide = input.required<Slide>();
-  timestamp = new Date();
 
   threeColumnData = computed(() => {
     const s = this.slide();

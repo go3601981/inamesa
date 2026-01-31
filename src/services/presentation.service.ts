@@ -38,7 +38,7 @@ export class PresentationService {
       layout: 'title',
       content: [
         'Optimización operativa, control en tiempo real y habilitadores comerciales',
-        'Presentado por Go360 – 2025'
+        'Presentado por Go360 – 2026'
       ]
     },
     {
