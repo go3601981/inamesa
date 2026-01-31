@@ -5,13 +5,21 @@ import { GoogleGenAI, Type } from '@google/genai';
   providedIn: 'root'
 })
 export class GeminiService {
-  private ai: GoogleGenAI;
+  private ai: GoogleGenAI | undefined;
   private apiKey: string;
 
   constructor() {
     this.apiKey = this.getApiKey();
-    // Initialize Gemini with the API Key
-    this.ai = new GoogleGenAI({ apiKey: this.apiKey });
+    // Only initialize Gemini if we have a valid key to prevent SDK crash
+    if (this.apiKey) {
+      try {
+        this.ai = new GoogleGenAI({ apiKey: this.apiKey });
+      } catch (e) {
+        console.error('Failed to initialize GoogleGenAI client:', e);
+      }
+    } else {
+      console.warn('Gemini API Key is missing. AI features will use fallback mocks.');
+    }
   }
 
   private getApiKey(): string {
@@ -26,8 +34,8 @@ export class GeminiService {
   }
 
   async generateOutline(client: string, tone: string, language: string): Promise<any[]> {
-    if (!this.apiKey) {
-      console.warn('No API Key found. Returning mock data.');
+    if (!this.ai) {
+      console.warn('Gemini instance not initialized. Returning mock data.');
       return [
         { title: 'Overview', layout: 'content' },
         { title: 'Objectives', layout: 'content' },
@@ -73,7 +81,7 @@ export class GeminiService {
   }
 
   async generateSlideContent(title: string, client: string, tone: string, language: string): Promise<string[]> {
-     if (!this.apiKey) {
+     if (!this.ai) {
       return ['Placeholder content point 1', 'Placeholder content point 2', 'Placeholder content point 3'];
     }
 
