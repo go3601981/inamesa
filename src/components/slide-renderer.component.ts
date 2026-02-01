@@ -34,12 +34,12 @@ import { Slide } from '../services/presentation.service';
       </div>
 
       <!-- Slide Layouts -->
-      <!-- We use flex-1 to fill space, but ensure bottom padding (pb-16) is respected by compacting content -->
+      <!-- We use flex-1 to fill space, but ensure bottom padding (pb-20/24) is respected by compacting content -->
       @switch (slide().layout) {
         
         <!-- TITLE LAYOUT -->
         @case ('title') {
-          <div class="flex-1 flex flex-col justify-center px-16 pb-16 relative">
+          <div class="flex-1 flex flex-col justify-center px-16 pb-24 relative">
              <div class="uppercase text-sm font-bold text-[#2D4B8E] mb-6 tracking-widest">
                 Propuesta Técnica
              </div>
@@ -65,7 +65,7 @@ import { Slide } from '../services/presentation.service';
 
         <!-- CONTENT LAYOUT -->
         @case ('content') {
-           <div class="flex-1 flex flex-col px-16 pt-8 pb-16 min-h-0">
+           <div class="flex-1 flex flex-col px-16 pt-8 pb-20 min-h-0">
              <!-- Header: Reduced bottom margin to save vertical space -->
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-4 mb-6 shrink-0">
                 <h2 class="text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
@@ -93,7 +93,7 @@ import { Slide } from '../services/presentation.service';
 
         <!-- THREE COLUMN LAYOUT -->
         @case ('three-column') {
-          <div class="flex-1 flex flex-col px-16 pt-8 pb-16 min-h-0">
+          <div class="flex-1 flex flex-col px-16 pt-8 pb-20 min-h-0">
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-4 mb-6 shrink-0">
                 <h2 class="text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
              </div>
@@ -155,7 +155,7 @@ import { Slide } from '../services/presentation.service';
 
         <!-- COMPARISON LAYOUT (AS-IS vs TO-BE) -->
         @case ('comparison') {
-          <div class="flex-1 flex flex-col px-16 pt-8 pb-16 min-h-0">
+          <div class="flex-1 flex flex-col px-16 pt-8 pb-24 min-h-0">
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-4 mb-6 shrink-0">
                 <h2 class="text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
              </div>
@@ -211,7 +211,7 @@ import { Slide } from '../services/presentation.service';
 
         <!-- AGENDA LAYOUT -->
         @case ('agenda') {
-          <div class="flex-1 flex flex-col px-16 pt-8 pb-16">
+          <div class="flex-1 flex flex-col px-16 pt-8 pb-20">
              <h2 class="text-4xl font-bold text-[#2D4B8E] mb-12">Agenda</h2>
              
              <div class="grid grid-cols-2 gap-6">
@@ -232,7 +232,7 @@ import { Slide } from '../services/presentation.service';
         
         <!-- DEFAULT/CONCLUSION -->
         @default {
-          <div class="flex-1 flex flex-col items-center justify-center bg-white px-16 pb-16">
+          <div class="flex-1 flex flex-col items-center justify-center bg-white px-16 pb-24">
             <h2 class="text-5xl font-extrabold text-slate-900 mb-6">{{ slide().title }}</h2>
             <div class="flex items-center gap-2">
                <div class="w-2 h-2 rounded-full bg-[#F97316]"></div>
