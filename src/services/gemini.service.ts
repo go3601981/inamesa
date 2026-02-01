@@ -37,9 +37,9 @@ export class GeminiService {
     if (!this.ai) {
       console.warn('Gemini instance not initialized. Returning mock data.');
       return [
-        { title: 'Overview', layout: 'content' },
-        { title: 'Objectives', layout: 'content' },
-        { title: 'Market Analysis', layout: 'content' }
+        { title: 'Resumen', layout: 'content' },
+        { title: 'Objetivos', layout: 'content' },
+        { title: 'Análisis de Mercado', layout: 'content' }
       ];
     }
 
@@ -82,7 +82,7 @@ export class GeminiService {
 
   async generateSlideContent(title: string, client: string, tone: string, language: string): Promise<string[]> {
      if (!this.ai) {
-      return ['Placeholder content point 1', 'Placeholder content point 2', 'Placeholder content point 3'];
+      return ['Contenido de ejemplo punto 1', 'Contenido de ejemplo punto 2', 'Contenido de ejemplo punto 3'];
     }
 
     const prompt = `Write content for a presentation slide titled "${title}" for client "${client}".
@@ -107,7 +107,7 @@ export class GeminiService {
       return text ? JSON.parse(text) : [];
     } catch (e) {
       console.error('Gemini Content Error:', e);
-      return ['Error generating content.'];
+      return ['Error generando contenido.'];
     }
   }
 }

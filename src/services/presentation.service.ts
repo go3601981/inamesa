@@ -26,7 +26,7 @@ export class PresentationService {
   config = signal<PresentationConfig>({
     client: 'INAMESA',
     language: 'Spanish',
-    tone: 'Industrial, Sober, Professional',
+    tone: 'Industrial, Sobrio, Profesional',
     format: '16:9'
   });
 
@@ -70,8 +70,8 @@ export class PresentationService {
       title: 'Proceso actual vs proceso propuesto',
       layout: 'comparison',
       content: [
-        'AS-IS|Guías físicas con firma presencial.|Despachos gestionados manualmente.|Registro de entrega diferido.|Información fragmentada.',
-        'TO-BE|Guías digitales con firma interna.|Cola y agenda de despachos visible.|Cierre de entrega en campo.|Información centralizada en tiempo real.'
+        'Situación Actual|Guías físicas con firma presencial.|Despachos gestionados manualmente.|Registro de entrega diferido.|Información fragmentada.',
+        'Situación Futura|Guías digitales con firma interna.|Cola y agenda de despachos visible.|Cierre de entrega en campo.|Información centralizada en tiempo real.'
       ]
     },
     {
