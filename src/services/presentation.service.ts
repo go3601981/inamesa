@@ -169,13 +169,35 @@ export class PresentationService {
     },
     {
       id: 's14',
-      title: 'Tiempos y costos',
+      title: 'Fase 1 – Núcleo Operativo Digital',
       layout: 'three-column',
       content: [
-        'Fase 1: Núcleo Operativo|Alcance: Guías, Cola, App Chofer.|Tiempo estimado: 4 a 6 semanas.|Inversión estimada: A definir.',
-        'Fase 2: Optimización|Alcance: Dashboards y ajustes.|Tiempo estimado: 2 a 3 semanas.|Inversión estimada: A definir.',
-        'Fase 3: Crecimiento|Alcance: 3D, AR y Contenidos.|Tiempo estimado: Recurrente.|Inversión estimada: Mensual.',
-        'Nota: Los valores finales se confirman tras el levantamiento detallado.'
+        'Alcance técnico|Sistema de guías digitales con firma interna.|Sistema de cola y agenda de despachos.|Guía digital para chofer con cierre de entrega en tiempo real.|Roles, permisos y trazabilidad operativa.|Dashboard operativo básico.',
+        'Qué resuelve|Eliminación de papel y firmas presenciales.|Reducción de tiempos administrativos.|Control y visibilidad del proceso de despacho.|Registro inmediato de entregas.',
+        'Tiempos e Inversión|Tiempo estimado: 12 a 16 semanas de implementación.|Inversión estimada: USD 27,430 (no incluye IGV).',
+        'Esta fase es la base obligatoria sobre la cual se construyen las siguientes.'
+      ]
+    },
+    {
+      id: 's14b',
+      title: 'Fase 2 – Optimización Operativa',
+      layout: 'three-column',
+      content: [
+        'Alcance técnico|Sistema de conteo asistido con inteligencia artificial.|Aplicación móvil de captura para inventarios.|Conteo de tubos y varillas.|Validación manual asistida.|Registro histórico de conteos.|Fase piloto con calibración en campo.',
+        'Consideraciones|Orientado a reducción de tiempo y error humano.|No se garantiza exactitud total en materiales muy delgados.|No incluye integración con ERP.',
+        'Tiempos e Inversión|Tiempo estimado: 8 a 10 semanas de implementación.|Inversión estimada: USD 13,650 (no incluye IGV).',
+        'Esta fase es opcional y se recomienda ejecutar después de estabilizar la Fase 1.'
+      ]
+    },
+    {
+      id: 's14c',
+      title: 'Fase 3 – Crecimiento Comercial y Posicionamiento',
+      layout: 'three-column',
+      content: [
+        'Alcance técnico|Visualización de productos en 3D desde la web.|Realidad aumentada para visualización en tamaño real.|Uso del administrador interno de modelos 3D ya desarrollado.|Kit digital para vendedores.|Activación de herramientas comerciales visuales.',
+        'Beneficio principal|Mejora en la comprensión técnica del producto.|Soporte visual para ventas B2B.|Diferenciación comercial frente a competidores.',
+        'Tiempos, Inversión y Recurrencia|Tiempo estimado: 6 a 8 semanas (según cantidad productos 3D).|Inversión One-time: USD 8,710 (no incluye IGV).|Servicio Recurrente Opcional (LinkedIn y X):|4 publicaciones semanales.|Fee mensual: USD 600 (no incluye IGV).',
+        'Esta fase potencia el crecimiento comercial sobre una operación ya digitalizada.'
       ]
     },
     {
