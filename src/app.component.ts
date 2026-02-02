@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PresentationService } from './services/presentation.service';
@@ -13,6 +13,8 @@ import { SlideRendererComponent } from './components/slide-renderer.component';
 export class AppComponent {
   presentationService = inject(PresentationService);
 
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLElement>;
+
   // Expose signals for template
   config = this.presentationService.config;
   slides = this.presentationService.slides;
@@ -22,6 +24,20 @@ export class AppComponent {
 
   // Local UI state
   showEditor = false;
+
+  constructor() {
+    effect(() => {
+      // Track index changes
+      const idx = this.currentSlideIndex();
+      
+      // Reset scroll whenever the index changes
+      // We use a small timeout to ensure the DOM might have updated or just to break the sync stack slightly if needed,
+      // but usually synchronous reset is fine.
+      if (this.scrollContainer && this.scrollContainer.nativeElement) {
+        this.scrollContainer.nativeElement.scrollTop = 0;
+      }
+    });
+  }
 
   toggleEditMode() {
     this.showEditor = !this.showEditor;

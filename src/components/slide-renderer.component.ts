@@ -8,7 +8,8 @@ import { Slide } from '../services/presentation.service';
   imports: [CommonModule, NgOptimizedImage],
   template: `
     <!-- Slide Container: Responsive height, fixed aspect-ratio only on desktop -->
-    <div class="relative w-full h-full flex flex-col text-slate-800 bg-white">
+    <!-- Changed h-full to min-h-full to allow growth on mobile -->
+    <div class="relative w-full min-h-full flex flex-col text-slate-800 bg-white">
       
       <!-- Top Bar: Responsive Padding and Height -->
       <div class="flex-none h-auto min-h-[4rem] md:h-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8 pb-4 md:pb-0">
@@ -38,7 +39,7 @@ import { Slide } from '../services/presentation.service';
         
         <!-- TITLE LAYOUT -->
         @case ('title') {
-          <div class="flex-1 flex flex-col justify-center px-6 md:px-16 pb-12 md:pb-24 relative">
+          <div class="flex-auto md:flex-1 flex flex-col justify-center px-6 md:px-16 pb-12 md:pb-24 relative">
              <div class="uppercase text-xs md:text-sm font-bold text-[#2D4B8E] mb-4 md:mb-6 tracking-widest">
                 Propuesta Técnica
              </div>
@@ -64,13 +65,14 @@ import { Slide } from '../services/presentation.service';
 
         <!-- CONTENT LAYOUT -->
         @case ('content') {
-           <div class="flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20 min-h-0">
+           <!-- Changed flex-1/min-h-0 to responsive flex-auto/md:flex-1 to allow mobile growth -->
+           <div class="flex-auto md:flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20 md:min-h-0">
              <!-- Header -->
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-2 md:pb-4 mb-4 md:mb-6 shrink-0">
                 <h2 class="text-2xl md:text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
              </div>
 
-             <div class="flex-1 min-h-0">
+             <div class="flex-auto md:flex-1 md:min-h-0">
                 @if (slide().content.length === 0) {
                   <div class="h-full flex items-center justify-center bg-gray-50 rounded-lg border border-dashed border-gray-300 text-gray-400 font-medium py-8">
                     Aún no hay contenido generado
@@ -91,16 +93,19 @@ import { Slide } from '../services/presentation.service';
 
         <!-- THREE COLUMN LAYOUT -->
         @case ('three-column') {
-          <div class="flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20 min-h-0">
+          <!-- Changed flex-1/min-h-0 to responsive flex-auto/md:flex-1 to allow mobile growth -->
+          <div class="flex-auto md:flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20 md:min-h-0">
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-2 md:pb-4 mb-4 md:mb-6 shrink-0">
                 <h2 class="text-2xl md:text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
              </div>
 
              @if (threeColumnData(); as data) {
-               <div class="grid gap-4 md:gap-6 flex-1 min-h-0 grid-cols-1" 
+               <!-- Grid: Removed flex-1 min-h-0 on mobile -->
+               <div class="grid gap-4 md:gap-6 flex-auto md:flex-1 md:min-h-0 grid-cols-1" 
                     [class.md:grid-cols-3]="data.sections.length >= 3" 
                     [class.md:grid-cols-2]="data.sections.length === 2">
                  @for (section of data.sections; track section.title) {
+                   <!-- Updated: h-auto on mobile, removed overflow-hidden on mobile to ensure content isn't clipped -->
                    <div class="bg-slate-50 rounded-xl p-4 md:p-5 border border-slate-200 flex flex-col hover:border-blue-200 transition-colors h-auto md:h-full md:overflow-hidden">
                      
                      <!-- Standard List View -->
@@ -108,8 +113,8 @@ import { Slide } from '../services/presentation.service';
                          <h3 class="text-base md:text-lg font-bold text-[#2D4B8E] mb-2 md:mb-3 pb-2 border-b border-gray-200 uppercase tracking-wide shrink-0">
                            {{ section.title }}
                          </h3>
-                         <!-- Allow overflow visible on mobile to let it grow, scroll on desktop -->
-                         <ul class="space-y-2 flex-1 md:overflow-y-auto pr-1 custom-scrollbar">
+                         <!-- Removed flex-1 on mobile, using flex-none or just block flow -->
+                         <ul class="space-y-2 flex-none md:flex-1 md:overflow-y-auto pr-1 custom-scrollbar">
                            @for (point of section.points; track point) {
                              @if (point.toLowerCase().includes('inversión')) {
                                <li class="mt-2 flex items-start bg-[#2D4B8E]/10 p-2 md:p-2.5 rounded border border-[#2D4B8E]/20 text-[#2D4B8E] font-bold text-xs md:text-sm leading-snug shadow-sm">
@@ -153,13 +158,13 @@ import { Slide } from '../services/presentation.service';
 
         <!-- COMPARISON LAYOUT (AS-IS vs TO-BE) -->
         @case ('comparison') {
-          <div class="flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-24 min-h-0">
+          <div class="flex-auto md:flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-24 md:min-h-0">
              <div class="flex items-baseline justify-between border-b border-gray-100 pb-2 md:pb-4 mb-4 md:mb-6 shrink-0">
                 <h2 class="text-2xl md:text-4xl font-bold text-slate-900">{{ slide().title }}</h2>
              </div>
 
              @if (comparisonData(); as data) {
-               <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start relative min-h-0">
+               <div class="flex-auto md:flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start relative md:min-h-0">
                   <!-- Vertical Separator/Arrow (Hidden on Mobile) -->
                   <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-12 h-12 bg-white rounded-full border-2 border-gray-200 text-gray-400">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -167,13 +172,14 @@ import { Slide } from '../services/presentation.service';
 
                   <!-- AS-IS (Left) -->
                   @if (data[0]) {
-                    <div class="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200 h-auto md:h-full flex flex-col overflow-hidden">
+                    <!-- Updated: h-auto and removed overflow-hidden on mobile -->
+                    <div class="bg-gray-50 rounded-xl p-6 md:p-8 border border-gray-200 h-auto md:h-full flex flex-col md:overflow-hidden">
                        <div class="flex items-center justify-between mb-3 md:mb-4 pb-2 md:pb-4 border-b border-gray-200 shrink-0">
                           <h3 class="text-xl md:text-2xl font-black text-slate-500 uppercase tracking-tight">{{ data[0].title }}</h3>
                           <span class="px-2 md:px-3 py-1 bg-gray-200 text-gray-600 text-[10px] md:text-xs font-bold rounded uppercase">Actual</span>
                        </div>
                        <!-- Remove scroll on mobile, let it grow -->
-                       <ul class="space-y-3 md:overflow-y-auto pr-2 custom-scrollbar">
+                       <ul class="space-y-3 flex-none md:flex-1 md:overflow-y-auto pr-2 custom-scrollbar">
                          @for (point of data[0].points; track point) {
                            <li class="flex items-start text-slate-600 font-medium text-sm md:text-base">
                               <span class="text-gray-400 mr-3 mt-1">•</span>
@@ -186,7 +192,8 @@ import { Slide } from '../services/presentation.service';
 
                   <!-- TO-BE (Right) -->
                   @if (data[1]) {
-                    <div class="bg-white rounded-xl p-6 md:p-8 border-2 border-[#2D4B8E]/20 shadow-xl shadow-blue-900/5 h-auto md:h-full flex flex-col relative overflow-hidden">
+                    <!-- Updated: h-auto and removed overflow-hidden on mobile -->
+                    <div class="bg-white rounded-xl p-6 md:p-8 border-2 border-[#2D4B8E]/20 shadow-xl shadow-blue-900/5 h-auto md:h-full flex flex-col relative md:overflow-hidden">
                        <!-- Decorative Corner -->
                        <div class="absolute top-0 right-0 w-16 h-16 md:w-24 md:h-24 bg-blue-50 rounded-bl-full -mr-8 -mt-8 md:-mr-10 md:-mt-10"></div>
                        
@@ -194,7 +201,7 @@ import { Slide } from '../services/presentation.service';
                           <h3 class="text-xl md:text-2xl font-black text-[#2D4B8E] uppercase tracking-tight">{{ data[1].title }}</h3>
                           <span class="px-2 md:px-3 py-1 bg-[#2D4B8E] text-white text-[10px] md:text-xs font-bold rounded uppercase">Futuro</span>
                        </div>
-                       <ul class="space-y-3 relative md:overflow-y-auto pr-2 custom-scrollbar">
+                       <ul class="space-y-3 relative flex-none md:flex-1 md:overflow-y-auto pr-2 custom-scrollbar">
                          @for (point of data[1].points; track point) {
                            <li class="flex items-start text-slate-800 font-medium text-sm md:text-base">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 text-[#10B981] mr-2 md:mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
@@ -211,7 +218,7 @@ import { Slide } from '../services/presentation.service';
 
         <!-- AGENDA LAYOUT -->
         @case ('agenda') {
-          <div class="flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20">
+          <div class="flex-auto md:flex-1 flex flex-col px-6 md:px-16 pt-4 md:pt-8 pb-8 md:pb-20">
              <h2 class="text-2xl md:text-4xl font-bold text-[#2D4B8E] mb-6 md:mb-12">Agenda</h2>
              
              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -232,7 +239,7 @@ import { Slide } from '../services/presentation.service';
         
         <!-- DEFAULT/CONCLUSION -->
         @default {
-          <div class="flex-1 flex flex-col items-center justify-center bg-white px-6 md:px-16 pb-12 md:pb-24">
+          <div class="flex-auto md:flex-1 flex flex-col items-center justify-center bg-white px-6 md:px-16 pb-12 md:pb-24">
             <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 text-center">{{ slide().title }}</h2>
             <div class="flex items-center gap-2">
                <div class="w-2 h-2 rounded-full bg-[#F97316]"></div>
@@ -253,7 +260,6 @@ import { Slide } from '../services/presentation.service';
     :host {
       display: block;
       width: 100%;
-      height: 100%;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 4px;
