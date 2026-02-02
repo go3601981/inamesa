@@ -7,9 +7,8 @@ import { Slide } from '../services/presentation.service';
   standalone: true,
   imports: [CommonModule, NgOptimizedImage],
   template: `
-    <!-- Slide Container: Responsive height, fixed aspect-ratio only on desktop -->
-    <!-- Changed h-full to min-h-full to allow growth on mobile -->
-    <div class="relative w-full min-h-full flex flex-col text-slate-800 bg-white">
+    <!-- Slide Container: Root div now fills the host flex container -->
+    <div class="relative w-full flex-1 flex flex-col text-slate-800 bg-white">
       
       <!-- Top Bar: Responsive Padding and Height -->
       <div class="flex-none h-auto min-h-[4rem] md:h-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8 pb-4 md:pb-0">
@@ -258,8 +257,10 @@ import { Slide } from '../services/presentation.service';
   `,
   styles: [`
     :host {
-      display: block;
+      display: flex;
+      flex-direction: column;
       width: 100%;
+      min-height: 100%;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 4px;
